@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpeedUpSkill",
+                    "name": "Skill0",
                     "type": "Button",
                     "id": "3438ab89-7653-4c26-b303-1e88dcab60e2",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PowerUpSkill",
+                    "name": "Skill1",
                     "type": "Button",
                     "id": "da7fad1e-2edb-433f-a4d1-7a355f5c67f4",
                     "expectedControlType": "Button",
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "SpeedUpSkill",
+                    "action": "Skill0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -145,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PowerUpSkill",
+                    "action": "Skill1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

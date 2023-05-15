@@ -24,7 +24,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     ""name"": ""PlayerAction"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""PlayerController"",
             ""id"": ""8dbd7459-bc04-4d10-b9e7-edbf6685dc8e"",
             ""actions"": [
                 {
@@ -64,7 +64,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpeedUpSkill"",
+                    ""name"": ""Skill0"",
                     ""type"": ""Button"",
                     ""id"": ""3438ab89-7653-4c26-b303-1e88dcab60e2"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PowerUpSkill"",
+                    ""name"": ""Skill1"",
                     ""type"": ""Button"",
                     ""id"": ""da7fad1e-2edb-433f-a4d1-7a355f5c67f4"",
                     ""expectedControlType"": ""Button"",
@@ -156,7 +156,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""SpeedUpSkill"",
+                    ""action"": ""Skill0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -167,7 +167,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PowerUpSkill"",
+                    ""action"": ""Skill1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -215,14 +215,14 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        // PlayerController
+        m_Player = asset.FindActionMap("PlayerController", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_SpeedUpSkill = m_Player.FindAction("SpeedUpSkill", throwIfNotFound: true);
-        m_Player_PowerUpSkill = m_Player.FindAction("PowerUpSkill", throwIfNotFound: true);
+        m_Player_Skill0 = m_Player.FindAction("Skill0", throwIfNotFound: true);
+        m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -284,15 +284,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
+    // PlayerController
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_SpeedUpSkill;
-    private readonly InputAction m_Player_PowerUpSkill;
+    private readonly InputAction m_Player_Skill0;
+    private readonly InputAction m_Player_Skill1;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
@@ -301,8 +301,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @SpeedUpSkill => m_Wrapper.m_Player_SpeedUpSkill;
-        public InputAction @PowerUpSkill => m_Wrapper.m_Player_PowerUpSkill;
+        public InputAction @Skill0 => m_Wrapper.m_Player_Skill0;
+        public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -324,12 +324,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @SpeedUpSkill.started += instance.OnSpeedUpSkill;
-            @SpeedUpSkill.performed += instance.OnSpeedUpSkill;
-            @SpeedUpSkill.canceled += instance.OnSpeedUpSkill;
-            @PowerUpSkill.started += instance.OnPowerUpSkill;
-            @PowerUpSkill.performed += instance.OnPowerUpSkill;
-            @PowerUpSkill.canceled += instance.OnPowerUpSkill;
+            @Skill0.started += instance.OnSkill0;
+            @Skill0.performed += instance.OnSkill0;
+            @Skill0.canceled += instance.OnSkill0;
+            @Skill1.started += instance.OnSkill1;
+            @Skill1.performed += instance.OnSkill1;
+            @Skill1.canceled += instance.OnSkill1;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -346,12 +346,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @SpeedUpSkill.started -= instance.OnSpeedUpSkill;
-            @SpeedUpSkill.performed -= instance.OnSpeedUpSkill;
-            @SpeedUpSkill.canceled -= instance.OnSpeedUpSkill;
-            @PowerUpSkill.started -= instance.OnPowerUpSkill;
-            @PowerUpSkill.performed -= instance.OnPowerUpSkill;
-            @PowerUpSkill.canceled -= instance.OnPowerUpSkill;
+            @Skill0.started -= instance.OnSkill0;
+            @Skill0.performed -= instance.OnSkill0;
+            @Skill0.canceled -= instance.OnSkill0;
+            @Skill1.started -= instance.OnSkill1;
+            @Skill1.performed -= instance.OnSkill1;
+            @Skill1.canceled -= instance.OnSkill1;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -439,8 +439,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnSpeedUpSkill(InputAction.CallbackContext context);
-        void OnPowerUpSkill(InputAction.CallbackContext context);
+        void OnSkill0(InputAction.CallbackContext context);
+        void OnSkill1(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
