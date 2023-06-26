@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class TopToGroundState : IPlayerState
 {
-    private float _animTIme = 1.8f;
-
     public async void OnStart(PlayerController playerController)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(_animTIme));
+        await UniTask.Delay(TimeSpan.FromSeconds(1.58f));
         playerController.JumpInputEnd();
-        playerController.ChangeState(PlayerController.PlayerStateId.Stand);
     }
 
     public void OnUpData(PlayerController playerController)
@@ -28,6 +25,16 @@ public class TopToGroundState : IPlayerState
         if (moveForward != Vector3.zero) 
         {
             playerController.transform.rotation = Quaternion.LookRotation(moveForward);
+        }
+        
+        if(playerController.MoveInput == Vector2.zero && !playerController.JumpInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.Stand);
+
+        if (playerController.MoveInput != Vector2.zero && !playerController.JumpInput)
+        {
+            playerController.ChangeState(playerController.WalkInput
+                ? PlayerController.PlayerStateId.Walk
+                : PlayerController.PlayerStateId.Run);
         }
         
     }

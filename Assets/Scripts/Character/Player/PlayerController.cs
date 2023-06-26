@@ -198,7 +198,6 @@ public class PlayerController : MonoBehaviour
     public void JumpInputEnd()
     {
         _jumpInput = false;
-        _isGround = true;
         Debug.Log("ジャンプした");
     }
 
@@ -224,5 +223,11 @@ public class PlayerController : MonoBehaviour
     {
         _powerAttackInput = false;
         Debug.Log("強攻撃");
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+            _isGround = true;
     }
 }
