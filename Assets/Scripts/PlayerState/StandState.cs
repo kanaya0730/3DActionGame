@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StandState : IPlayerState
@@ -13,24 +11,22 @@ public class StandState : IPlayerState
     {
         if (playerController.MoveInput != Vector2.zero)
         {
-            playerController.ChangeState(PlayerController.PlayerStateId.Walk);
+            playerController.ChangeState(playerController.WalkInput
+                ? PlayerController.PlayerStateId.Walk
+                : PlayerController.PlayerStateId.Run);
         }
 
         if (playerController.JumpInput)
-        {
-            Debug.Log("3");
-            playerController.ChangeState(PlayerController.PlayerStateId.Jump);
-        }
-        
-        if (playerController.RunInput)
-        {
-            playerController.ChangeState(PlayerController.PlayerStateId.Run);
-        }
-        
+            playerController.ChangeState(PlayerController.PlayerStateId.JumpToTop);
+
         if (playerController.AttackInput)
-        {
             playerController.ChangeState(PlayerController.PlayerStateId.Attack);
-        }
+        
+        if (playerController.PowerAttackInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.PowerAttack);
+
+        if (playerController.SkillInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.Skill);
     }
 
     public string GetText() => "立った";

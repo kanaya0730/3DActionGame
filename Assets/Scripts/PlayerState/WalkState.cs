@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkState : IPlayerState
@@ -24,22 +22,24 @@ public class WalkState : IPlayerState
         if (moveForward != Vector3.zero) 
         {
             playerController.transform.rotation = Quaternion.LookRotation(moveForward);
+            playerController.ChangeState(PlayerController.PlayerStateId.Walk);
+            playerController.WalkInputEnd();
         }
 
         if (playerController.MoveInput == Vector2.zero)
-        {
             playerController.ChangeState(PlayerController.PlayerStateId.Stand);
-        }
         
         if (playerController.JumpInput)
-        {
-            playerController.ChangeState(PlayerController.PlayerStateId.Jump);
-        }
+            playerController.ChangeState(PlayerController.PlayerStateId.JumpToTop);
         
-        if (playerController.RunInput)
-        {
-            playerController.ChangeState(PlayerController.PlayerStateId.Run);
-        }
+        if (playerController.AttackInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.Attack);
+        
+        if (playerController.PowerAttackInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.PowerAttack);
+
+        if (playerController.SkillInput)
+            playerController.ChangeState(PlayerController.PlayerStateId.Skill);
     }
     
     public string GetText() => "歩いた";
